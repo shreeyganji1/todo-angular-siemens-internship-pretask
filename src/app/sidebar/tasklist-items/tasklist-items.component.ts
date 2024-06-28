@@ -197,6 +197,8 @@ export class TasklistItemsComponent implements OnInit, AfterViewInit, OnDestroy 
     this.taskService.addTaskInTaskList(newTask, taskListId);
   }
 
+  
+
   getAllTasks(): Task[] {
     return this.tasklistitems.flatMap(taskList => taskList.Tasks);
   }

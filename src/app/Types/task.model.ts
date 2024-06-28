@@ -1,14 +1,14 @@
-import Step from "./step.model";
+import Step from './step.model'; // Ensure the correct import path
 
 export default interface Task {
-  name: string;
-  done: boolean;
   id: string;
-  title: string;
+  name: string;
+ 
+  done: boolean;
   important: boolean;
   date: Date;
   steps?: Step[];
-  description? : string | null;
+  description?: string | null;
   dueDate?: Date;
-  
 }
+

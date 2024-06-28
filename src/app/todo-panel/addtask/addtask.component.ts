@@ -48,7 +48,6 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     this.toggleAddTaskFlag = false;
   }
   
-
   @HostListener('window:keydown.enter', ['$event'])
   handleKeyDownEnter(event: KeyboardEvent) {
     if (event.keyCode !== 13) return;
@@ -79,7 +78,6 @@ export class AddtaskComponent implements OnInit, OnDestroy {
     }
   }
 }
-
 
 
 

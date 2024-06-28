@@ -1,17 +1,8 @@
-<div class="task-container" title="Click to view details" (click)="showTaskDetails($event)" (contextmenu)="openTaskContextMenu($event)">
-  <input #taskInput type="checkbox" class="done" (change)="toggleTaskDone($event)" [checked]="task.done">
-  <input #taskInputImportant type="checkbox" class="important" title="Mark as important" (change)="toggleImportant()" [checked]="task.important">
-  <div class="task-details">
-    <span>{{ task.title }}</span>
-  </div>
-  <ul #taskContextMenu class="task-context-menu">
-    <li (click)="toggleTaskDone({ target: taskInput })">Complete</li>
-    <li (click)="toggleImportant()">Important</li>
-    <li class="delete" (click)="deleteTask()">Delete</li>
-  </ul>
+<div  class="task" title="Tap to view details" (click)="showTaskDetails($event)" (contextmenu)="taskContextMenuFun($event)">
+  <input #taskInput type="checkbox" class="done" (change)="taskDone($event)" [checked]="task.done" />
+  <label for="">{{task.name}} &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;{{task.dueDate}} </label>
+  <input #taskInputImportant type="checkbox" class="important" title="Mark as important" (change)="toggletaskImportant($event)" [checked]="task.important" />
 </div>
-
-
 
 <div class="task-contextmenu animate__animated animate__fadeInDown animate__faster" #taskContextMenu>
   <ul>
@@ -39,6 +30,3 @@
     </li>
   </ul>
 </div>
-
-
-

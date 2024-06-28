@@ -71,11 +71,19 @@ export class StepComponent implements OnDestroy{
     }
   }
 
-  promoteToTask($event: MouseEvent,arg1: Step) {
+  promoteToTask($event: MouseEvent, arg1: Step) {
     this.closeStepContextMenu();
     this.deleteStep();
-    this.taskService.getAddTaskInTaskListSubject().next({name: this.step.name!, done: false,important: false, id: uuidv4(), date: new Date()})
+    this.taskService.getAddTaskInTaskListSubject().next({
+      id: uuidv4(),
+      name: this.step.name!,
+      // Add this line
+      done: false,
+      important: false,
+      date: new Date()
+    });
   }
+  
 
   deleteStep() {
     this.stepService.getStepSubject().next({step : this.step, action : "delete"});
