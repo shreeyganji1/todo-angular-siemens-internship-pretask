@@ -37,6 +37,8 @@ export class TasklistComponent implements OnInit, OnDestroy {
     this.tasks = this.tasks.filter(task => task.id !== id);
   }
 }*/
+
+
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import Task from '../../Types/task.model';
 import { TaskComponent } from "./task/task.component";
@@ -47,11 +49,10 @@ import moment from 'moment';
 import { MatCalendar, MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonModule } from '@angular/material/button';
 
-
 @Component({
   selector: 'app-tasklist',
   standalone: true,
-  imports:[CommonModule,TaskComponent],
+  imports: [CommonModule, TaskComponent, MatDatepickerModule, MatButtonModule],
   templateUrl: './tasklist.component.html',
   styleUrls: ['./tasklist.component.scss']
 })
@@ -77,7 +78,11 @@ export class TasklistComponent implements OnInit, OnDestroy {
           date.setDate(date.getDate() - 1);
           return date;
         })(),
-        end: new Date(),
+        end: (() => {
+          const date = new Date();
+          date.setDate(date.getDate() - 1);
+          return date;
+        })(),
       },
     },
     {
@@ -88,18 +93,22 @@ export class TasklistComponent implements OnInit, OnDestroy {
           date.setDate(date.getDate() + 1);
           return date;
         })(),
-        end: new Date(),
+        end: (() => {
+          const date = new Date();
+          date.setDate(date.getDate() + 1);
+          return date;
+        })(),
       },
     },
     {
       label: 'Earlier',
       range: {
-        start: (() => {
+        start: new Date(0), // Epoch start date, represents a very old date
+        end: (() => {
           const date = new Date();
           date.setDate(date.getDate() - 2);
           return date;
         })(),
-        end: new Date(),
       },
     },
     {
@@ -110,7 +119,7 @@ export class TasklistComponent implements OnInit, OnDestroy {
           date.setDate(date.getDate() + 2);
           return date;
         })(),
-        end: new Date(),
+        end: new Date(8640000000000000), // Max possible date, represents a very distant future date
       },
     },
   ];
@@ -150,8 +159,18 @@ export class TasklistComponent implements OnInit, OnDestroy {
       const end = moment(this.selectedDateRange.end).endOf('day');
       this.filteredTasks = this.tasks.filter(task => {
         const taskDueDate = moment(task.dueDate);
-        return taskDueDate.isBetween(start, end, null, '[]');
+        if (this.selectedDateRange!.start.getTime() === new Date(0).getTime()) {
+          // Handle "Earlier" case
+          return taskDueDate.isBefore(end);
+        } else if (this.selectedDateRange!.end.getTime() === new Date(8640000000000000).getTime()) {
+          // Handle "Later" case
+          return taskDueDate.isAfter(start);
+        } else {
+          return taskDueDate.isBetween(start, end, null, '[]');
+        }
       });
+    } else {
+      this.filteredTasks = this.tasks; // Show all tasks if no date range is selected
     }
   }
 

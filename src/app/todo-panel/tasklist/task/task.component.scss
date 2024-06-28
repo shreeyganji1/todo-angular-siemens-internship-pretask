@@ -1,12 +1,12 @@
 div.task {
-  margin: 0em 0em 0.2em 1em;
+  margin: 0em 0em 1em 1em;  // Adjusted margin-bottom to 1em for more gap
   background-color: #051f1e;
-  color: #2b8282;
+  color: #0b2121;
   padding: 1em 1em;
   border-radius: 0.3em;
   font-family: 'noto sans display', Courier, monospace;
   font-weight: 600;
-  color: rgb(32, 117, 117);
+  color: rgb(245, 249, 249);
   display: grid;
   grid-template-columns: 35px auto 35px;
   border: 1px solid rgba($color: #268278, $alpha: 0.1);
@@ -24,7 +24,6 @@ div.task {
     align-content: center;
   }
 }
-
 
 div.task-contextmenu {
   display: none;
@@ -52,7 +51,7 @@ div.task-contextmenu {
       justify-content: left;
       align-items: center;
       padding: 0.5em 1em;
-      color: rgb(36, 132, 124);
+      color: rgb(9, 33, 31);
       &:hover {
         background-color: #05302d9d;
         border-radius: 0.2em;
@@ -118,7 +117,6 @@ input[type="checkbox"].important:checked::before {
   text-shadow: 0 0 1.7rem #91acff;
 }
 
-
 /* src/app/todo-panel/tasklist/task/task.component.scss */
 .task-details {
   display: flex;
@@ -127,7 +125,7 @@ input[type="checkbox"].important:checked::before {
 
 .task-name {
   font-size: 16px; /* Ensure font size is readable */
-  color: #8de6e3; /* Ensure color is set to something visible */
+  color: #e7eeee; /* Ensure color is set to something visible */
 }
 
 .task-date {

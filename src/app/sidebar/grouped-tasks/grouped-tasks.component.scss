@@ -181,46 +181,19 @@ div.tasklist-contextmenu {
   border: 1px solid #ccc; /* Add a border around the entire container 
 }*/
 
-.tasklist-item {
-  font-family: 'noto sans display', 'Courier New', Courier, monospace;
-  display: grid;
-  grid-template-columns: auto auto; /* Adjust column widths as needed */
-  align-items: center;
-  padding: 0.5em 0.5em;
-  margin: 1em 0.5em;
-  border-radius: 0em 0.3em 0.3em 0em;
-  border-left: 2px solid transparent;
 
-  &:hover {
-    background: linear-gradient(90deg, rgb(251, 249, 249) 0%, rgb(249, 247, 247) 100%);
-    border-left: 1px solid #ffffff77;
-  }
-
-  .important-container {
-    display: flex;
-    align-items: center;
-    border: 1px solid rgb(255, 254, 254); /* Black border around the IMPORTANT title */
-    padding: 5px;
-    margin-right: 10px; /* Space between star and IMPORTANT */
-  }
-
-  span.material-symbols-outlined {
-    color: #fbf9f9f8;
-    margin-right: 5px; /* Space between star and IMPORTANT */
-  }
-
-  .important-text {
+div {
+  h2 {
     color: white;
   }
 
-  div.countdiv {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #ffffff;
-    border-radius: 1em;
-    height: 100%;
-    width: 100%;
-    box-shadow: 1px 1px 3px rgba(255, 255, 255, 0.977), -1px -1px 3px rgba(255, 254, 254, 0.988);
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    margin-bottom: 1em;
   }
 }

@@ -3,7 +3,6 @@ import Step from './step.model'; // Ensure the correct import path
 export default interface Task {
   id: string;
   name: string;
- 
   done: boolean;
   important: boolean;
   date: Date;
@@ -11,4 +10,3 @@ export default interface Task {
   description?: string | null;
   dueDate?: Date;
 }
-

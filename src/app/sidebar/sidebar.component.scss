@@ -2,9 +2,9 @@ div.sidebar{
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 80px max-content auto 100px;
-  background-color: #185c5c;
+  background-color: #103535;
   height: 100vh;
-  border-right: 1px solid rgba($color: #185c5c, $alpha: 0.1);
+  border-right: 1px solid rgba($color: #0d3b3b, $alpha: 0.1);
 }
 div.grouped-tasks {
   border-bottom: 1px solid #fafafa;
