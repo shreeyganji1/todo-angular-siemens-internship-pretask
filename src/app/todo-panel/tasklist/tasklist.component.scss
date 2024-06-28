@@ -1,0 +1,40 @@
+div {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  
+  button {
+    flex: 1 1 18%;
+    margin: 0.5rem;
+    padding: 1rem;
+    text-align: center;
+    background-color: #083433;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    
+    &:hover {
+      background-color: #093e3e;
+    }
+  
+    &:focus {
+      outline: none;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    button {
+      flex: 1 1 45%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    button {
+      flex: 1 1 90%;
+    }
+  }
+  
