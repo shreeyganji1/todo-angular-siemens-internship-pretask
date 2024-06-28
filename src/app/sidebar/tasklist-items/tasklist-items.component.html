@@ -1,0 +1,5 @@
+@for (tasklist of tasklistitems; track tasklist.id) {
+  <app-tasklist-item [tasklist]="tasklist" [activeClass]="activeItem == $index ? 'active' : ''" [index]="$index" (activeItemDeleted)="activeItemDeleted()" (clicked)="onClicked($event)">
+  </app-tasklist-item>
+}
+

@@ -1,0 +1,8 @@
+<div class="title" (click)="renameHeader($event)">
+
+  @if(!toggleHeaderRenameFlag){
+    <h1>{{title | titlecase}}</h1>
+  } @else {
+    <input #taskheader (change)="updateTitle(taskheader.value)" class="header-rename-input" type="text" value="{{title | titlecase}}"/>
+  }
+</div>

@@ -1,0 +1,26 @@
+div.search {
+  margin: 0.5em 1em;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  span {
+    color: white;
+  }
+
+  input.searchbox {
+    padding: 0.2em 0.2em;
+    border: 1px solid rgba($color: #fff, $alpha: 0.1);
+    border-bottom: 1px solid white;
+    border-radius: 0.3em;
+    background-color: transparent;
+    height: 3em;
+    width:  100%;
+    &:active, &:focus, &:hover {
+      border-bottom: 1px solid #4cc2ff !important;
+    }
+  }
+}
+
+hr {
+  border: 0.5px solid rgba($color: #fff, $alpha: 0.05);
+}

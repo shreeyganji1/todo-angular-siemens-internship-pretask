@@ -1,0 +1,7 @@
+<div class="add-task" id="add-task" (click)="toggleAddTask($event)">
+  @if(!toggleAddTaskFlag){
+    <span class="material-symbols-outlined">add</span> Add a task
+  } @else {
+    <input #newtask class="new-task" type="text" placeholder='Try typing "Paying electricity bill by tomorrow."' />
+  }
+</div>

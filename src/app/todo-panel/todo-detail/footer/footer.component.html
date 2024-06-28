@@ -1,0 +1,10 @@
+<div class="footer">
+  <div class="create-date">
+    Created on {{task.date | date:'fullDate'}}
+  </div>
+  <div class="delete" (click)="deleteTask($event)">
+    <span class="material-symbols-outlined">
+      delete
+    </span>
+  </div>
+</div>

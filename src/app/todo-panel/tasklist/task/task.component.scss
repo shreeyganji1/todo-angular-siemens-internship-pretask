@@ -1,0 +1,136 @@
+div.task {
+  margin: 0em 0em 0.2em 1em;
+  background-color: #051f1e;
+  color: #2b8282;
+  padding: 1em 1em;
+  border-radius: 0.3em;
+  font-family: 'noto sans display', Courier, monospace;
+  font-weight: 600;
+  color: rgb(32, 117, 117);
+  display: grid;
+  grid-template-columns: 35px auto 35px;
+  border: 1px solid rgba($color: #268278, $alpha: 0.1);
+  &:hover {
+    background-color: #062b2b;
+  }
+  input[type="checkbox"].done {
+    margin-right: 1em;
+    &:checked ~ label {
+      text-decoration: line-through;
+      opacity: 0.4;
+    }
+  }
+  label {
+    align-content: center;
+  }
+}
+
+
+div.task-contextmenu {
+  display: none;
+  font-family: 'noto sans display' ,'Courier New', Courier, monospace;
+  width: -moz-fit-content;
+  width: fit-content;
+  border-radius: 0.5em;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  border: 2px solid rgba($color: #1e6868, $alpha: 0.1);
+  background-color: #062d297c;
+  ul{
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+    li.delete{
+      color: indianred !important;
+    }
+    li{
+      span{
+        padding-right: 0.5em;
+      }
+      cursor: pointer;
+      display: flex;
+      justify-content: left;
+      align-items: center;
+      padding: 0.5em 1em;
+      color: rgb(36, 132, 124);
+      &:hover {
+        background-color: #05302d9d;
+        border-radius: 0.2em;
+      }
+    }
+  }
+}
+
+input[type="checkbox"].done {
+  /* Remove default checkbox appearance */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  /* Create a custom checkbox */
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  outline: none;
+  transition: border-color 0.2s ease-in-out;
+}
+
+/* Style for checked checkbox */
+input[type="checkbox"].done:checked {
+  border-color: #0b5757;
+  background-color: #0e5252;
+  border: 2px solid #0f6d6c;
+}
+
+/* Style for checked checkbox after element (checkmark) */
+input[type="checkbox"].done:checked::after {
+  content: "\2714";
+  font-size: 12px;
+  color: #fff;
+  position: relative;
+  top: -1px;
+  left: 3px;
+}
+
+input[type="checkbox"].important {
+  /* Remove default checkbox appearance */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+}
+
+input[type="checkbox"].important::before {
+  content: "\2606";
+  font-size: 28px;
+  color: white;
+  position: relative;
+  top: -10px;
+}
+
+/* Style for checked checkbox after element (checkmark) */
+input[type="checkbox"].important:checked::before {
+  content: "\2605";
+  font-size: 28px;
+  color: #7082cc;
+  text-shadow: 0 0 1.7rem #91acff;
+}
+
+
+/* src/app/todo-panel/tasklist/task/task.component.scss */
+.task-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.task-name {
+  font-size: 16px; /* Ensure font size is readable */
+  color: #8de6e3; /* Ensure color is set to something visible */
+}
+
+.task-date {
+  font-size: 12px;
+  color: #888;
+}

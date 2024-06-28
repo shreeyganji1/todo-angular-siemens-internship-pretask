@@ -1,0 +1,27 @@
+<div class="step" (contextmenu)="stepContextMenuFun($event)">
+  <input #stepDone type="checkbox" class="step-done" (change)="stepDoneTD($event, step)" [checked]="step.done" />
+  <label for="">{{step.name}}</label>
+</div>
+
+
+<div class="step-contextmenu animate__animated animate__fadeInDown animate__faster" #stepContextMenu>
+  <ul>
+    <li (click)="menuStepComplete(step.done)">
+      @if (step.done){
+        <span class="material-symbols-outlined">radio_button_unchecked</span>
+        Mark as incomplete
+      } @else {
+        <span class="material-symbols-outlined">done</span>
+        Mark as complete
+      }
+    </li>
+    <li (click)="promoteToTask($event, step)">
+      <span class="material-symbols-outlined">add</span>
+      Promote to task
+    </li>
+    <li class="delete" (click)="deleteStep()">
+      <span class="material-symbols-outlined">delete</span>
+      Delete step
+    </li>
+  </ul>
+</div>

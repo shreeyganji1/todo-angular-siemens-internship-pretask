@@ -1,0 +1,156 @@
+@mixin center-flex($jc: center, $ai: center) {display: flex;justify-content: $jc;align-items: $ai;}
+
+div.close {
+  @include center-flex(right, normal);
+  align-self: center;
+  span {
+    padding: 0.5em 0.5em;
+    cursor: pointer;
+    &:active {
+      opacity: 0.5;
+    }
+  }
+}
+
+div.content {
+  padding: 0.5em 0.5em;
+  div.task-detail {
+    background-color: #141414;
+    border-radius: 3px;
+    padding: 1em;
+    font-family: 'noto sans display', 'Courier new';
+    font-weight: 600;
+    color: white;
+    display: grid;
+    grid-template-columns: 35px auto 35px;
+    input[type="checkbox"].done {
+      margin-right: 1em;
+      &:checked ~ label {
+        text-decoration: line-through;
+        opacity: 0.4;
+      }
+    }
+    label {
+      align-content: center;
+    }
+    input[type="checkbox"].done {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+
+      width: 20px;
+      height: 20px;
+      border: 2px solid #ccc;
+      border-radius: 12px;
+      outline: none;
+      &:checked {
+        background-color: #7082cc;
+        border: 2px solid #7082cc;
+        &::after{
+          content: "\2714";
+          font-size: 12px;
+          color: #fff;
+          position: relative;
+          inset: -1px 0px 0px 3px;
+        }
+      }
+    }
+
+    input[type="checkbox"].important {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      &::before {
+        content: "\2606";
+        font-size: 28px;
+        color: white;
+        position: relative;
+        top: -10px;
+      }
+      &:checked::before {
+        content: "\2605";
+        font-size: 28px;
+        color: #7082cc;
+        text-shadow: 0 0 1.7rem #91acff;
+      }
+    }
+  }
+
+  div.description {
+    margin-top: 1em;
+
+    textarea {
+      background-color: #141414;
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 1em;
+      font-family: 'noto sans display', 'Courier New';
+      border: 1px solid transparent;
+
+      &:focus {
+        outline: none;
+        color: white;
+        border: 1px solid #ffffff1a;
+      }
+    }
+  }
+
+  div.duedate {
+    padding-top: 2em;
+    border-top: 1px solid #ffffff1a;
+    label{
+      padding: 1em;
+    }
+    input[type="date"] {
+      color-scheme: dark;
+      background-color: #141414;
+      color: white;
+      width: 100%;
+      padding: 1em;
+      font-family: 'noto sans display', 'Courier New';
+      border: 1px solid transparent;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  div.steps{
+    div.add-step-span {
+      cursor: pointer;
+      background-color: #141414;
+      @include center-flex(flex-start, center);
+      color: #7082cc;
+      width: 100%;
+      padding: 1em 1em;
+      span {
+        margin-right: 0.3em;
+      }
+    }
+    div.add-step-input{
+      display: grid;
+      grid-template-columns: 50px  auto;
+      background-color: #141414;
+      height: 125%;
+      span {
+        place-self: center flex-end;
+        opacity: 0.6;
+      }
+      input[type="text"].new-step {
+        cursor: pointer;
+        background-color: #141414;
+        @include center-flex(normal, center);
+        color: #fff;
+        padding: 1em 1em;
+        border: 1px solid transparent;
+        width: 80%;
+        &:focus{
+          outline: none;
+        }
+      }
+    }
+  }
+}

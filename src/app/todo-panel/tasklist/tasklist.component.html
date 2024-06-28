@@ -1,0 +1,16 @@
+<div>
+  <button
+    *ngFor="let preset of presets"
+    (click)="selectPreset(preset.range)">
+    {{ preset.label }}
+  </button>
+</div>
+
+
+<div *ngFor="let task of filteredTasks">
+  <app-task [task]="task" [taskListId]="taskListId" (deleteTaskId)="deleteTask($event)"></app-task>
+</div>
+
+<ng-template #noTasks>
+  <p>No tasks</p>
+</ng-template>

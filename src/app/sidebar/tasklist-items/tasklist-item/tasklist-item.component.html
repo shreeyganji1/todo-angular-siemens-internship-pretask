@@ -1,0 +1,21 @@
+<div #tasklistitem class="tasklist-item tasklist-item-{{index}} {{activeClass}}" (contextmenu)="taskListContextMenuFn($event)" (click)="displayTaskListItem(tasklist)">
+  <span class="material-symbols-outlined">
+    menu
+  </span>
+  <div>
+    {{tasklist.name | titlecase}}
+    
+  </div>
+  <div class="countdiv">
+    <span class="count">{{tasklist.Tasks.length}}</span>
+  </div>
+</div>
+
+<div class="tasklist-contextmenu animate__animated animate__fadeInDown animate__faster" #taskListContextMenu>
+  <ul>
+    <li class="delete" (click)="deleteTaskList($event)">
+      <span class="material-symbols-outlined">delete</span>
+      Delete tasklist
+    </li>
+  </ul>
+</div>

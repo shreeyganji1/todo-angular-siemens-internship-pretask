@@ -1,0 +1,19 @@
+@mixin center-flex($jc: center, $ai: center) {display: flex;justify-content: $jc;align-items: $ai;}
+
+div.footer {
+  display: grid;
+  grid-template-columns: auto 50px;
+  grid-template-rows: auto;
+  div.create-date {
+    @include center-flex();
+  }
+  div.delete {
+    @include center-flex();
+    cursor: pointer;
+    span {
+      &:active {
+        opacity: 0.5;
+      }
+    }
+  }
+}

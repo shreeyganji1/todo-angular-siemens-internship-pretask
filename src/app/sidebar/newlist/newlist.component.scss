@@ -1,0 +1,36 @@
+div.newlist {
+  margin: 0em 1em;
+  background-color: transparent;
+  color: #fff;
+  padding: 1em 1em;
+  border-radius: 0.3em;
+  font-family: "noto sans display", "Courier New", Courier, monospace;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  span {
+    margin-right: 0.5em;
+  }
+  &:hover {
+    background-color: #2b2b2b;
+    box-shadow: inset -4px;
+    cursor: pointer;
+  }
+  input {
+    background-color: #27272a;
+    outline: none;
+    box-shadow: none;
+    border: none;
+    border-radius: 0.3em;
+    color: white;
+    font-family: 'noto sans display', 'Courier New', Courier, monospace;
+    font-weight: 400;
+    width: 100%;
+    height: 56px;
+    padding: 10px;
+  }
+}
+
+div.newlist:has(input) {
+  padding: 0em !important;
+}

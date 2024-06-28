@@ -1,0 +1,12 @@
+<div class="todo-panel">
+  <div class="main">
+    <div><app-taskheader></app-taskheader></div>
+    <div #taskListDiv class="tasklist"><app-tasklist></app-tasklist></div>
+    <div><app-addtask></app-addtask></div>
+  </div>
+  <div #todoDetail class={{todoDetailClass}}>
+    <app-todo-detail [task]="task"></app-todo-detail>
+  </div>
+ 
+  
+</div>

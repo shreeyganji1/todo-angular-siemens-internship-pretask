@@ -1,0 +1,44 @@
+<div class="task-container" title="Click to view details" (click)="showTaskDetails($event)" (contextmenu)="openTaskContextMenu($event)">
+  <input #taskInput type="checkbox" class="done" (change)="toggleTaskDone($event)" [checked]="task.done">
+  <input #taskInputImportant type="checkbox" class="important" title="Mark as important" (change)="toggleImportant()" [checked]="task.important">
+  <div class="task-details">
+    <span>{{ task.title }}</span>
+  </div>
+  <ul #taskContextMenu class="task-context-menu">
+    <li (click)="toggleTaskDone({ target: taskInput })">Complete</li>
+    <li (click)="toggleImportant()">Important</li>
+    <li class="delete" (click)="deleteTask()">Delete</li>
+  </ul>
+</div>
+
+
+
+<div class="task-contextmenu animate__animated animate__fadeInDown animate__faster" #taskContextMenu>
+  <ul>
+    <li (click)="menuTaskComplete(taskInput.checked)">
+      @if (taskInput.checked){
+        <span class="material-symbols-outlined">radio_button_unchecked</span>
+        Mark as incomplete
+      } @else {
+        <span class="material-symbols-outlined">done</span>
+        Mark as complete
+      }
+    </li>
+    <li (click)="menuTaskImportant(taskInputImportant.checked)">
+      @if (taskInputImportant.checked){
+        <span class="material-symbols-outlined">star_half</span>
+        Remove importance
+      } @else {
+        <span class="material-symbols-outlined">star</span>
+        Mark as important
+      }
+    </li>
+    <li class="delete" (click)="deleteTask()">
+      <span class="material-symbols-outlined">delete</span>
+      Delete task
+    </li>
+  </ul>
+</div>
+
+
+
