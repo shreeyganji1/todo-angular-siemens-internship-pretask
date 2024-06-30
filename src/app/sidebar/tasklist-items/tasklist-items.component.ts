@@ -119,7 +119,6 @@ import { CommonModule } from '@angular/common';
   }
 }*/
 
-
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import TaskList from '../../Types/tasklist.model';
 import { TasklistItemComponent } from './tasklist-item/tasklist-item.component';
@@ -136,7 +135,6 @@ import Task from '../../Types/task.model';
   imports: [TasklistItemComponent]
 })
 export class TasklistItemsComponent implements OnInit, AfterViewInit, OnDestroy {
-  [x: string]: any;
   tasklistitems: TaskList[] = [];
   activeItem!: number;
   @ViewChildren(TasklistItemComponent) taskListItemsComponent!: QueryList<TasklistItemComponent>;
@@ -184,16 +182,16 @@ export class TasklistItemsComponent implements OnInit, AfterViewInit, OnDestroy 
   onClicked($event: number) {
     this.activeItem = $event;
   }
+
   public addTaskInTaskList(newTask: Task, taskListId: string) {
     const taskListIndex = this.tasklistitems.findIndex(list => list.id === taskListId);
     if (taskListIndex !== -1) {
       newTask.date = new Date(); // Ensure date is set
       this.tasklistitems[taskListIndex].Tasks.push(newTask);
       this.saveTaskListToStorage();
-      // In tasklist-items.component.ts
       this.taskService.getRenderSidePanelSubject().next([...this.tasklistitems]);
-      this.taskService.getAddTaskInTaskListSubject().next(newTask);
-
+      // this.taskService.getAddTaskInTaskListSubject().next(newTask); // This line should be updated
+      this.taskService.getAddTaskInTaskListSubject().next([...this.tasklistitems]);
     }
   }
 
@@ -202,10 +200,6 @@ export class TasklistItemsComponent implements OnInit, AfterViewInit, OnDestroy 
       localStorage.setItem('tasklistitems', JSON.stringify(this.tasklistitems));
     }
   }
-
-  
-
-
 
   addTask(taskName: string, taskListId: string) {
     const newTask: Task = {
@@ -217,8 +211,6 @@ export class TasklistItemsComponent implements OnInit, AfterViewInit, OnDestroy 
     };
     this.taskService.addTaskInTaskList(newTask, taskListId);
   }
-
-  
 
   getAllTasks(): Task[] {
     return this.tasklistitems.flatMap(taskList => taskList.Tasks);

@@ -4,26 +4,18 @@ import { TaskService } from '../../../services/task.service';
 import { StepService } from '../../../services/step.service';
 import { v4 as uuidv4 } from 'uuid';
 import { Subscription } from 'rxjs';
-
-
+import TaskList from '../../../Types/tasklist.model'; 
 @Component({
   selector: 'app-step',
   standalone: true,
   imports: [],
   templateUrl: './step.component.html',
-  styleUrl: './step.component.scss'
+  styleUrls: ['./step.component.scss']
 })
-export class StepComponent implements OnDestroy{
-
-  @Input()
-  public step! : Step;
-
-  @ViewChild('stepContextMenu')
-  stepContextMenuEle!: ElementRef<HTMLDivElement>;
-
-  @ViewChild('stepDone')
-  stepInput! : ElementRef<HTMLInputElement>;
-
+export class StepComponent implements OnDestroy {
+  @Input() public step!: Step;
+  @ViewChild('stepContextMenu') stepContextMenuEle!: ElementRef<HTMLDivElement>;
+  @ViewChild('stepDone') stepInput!: ElementRef<HTMLInputElement>;
   subs: Subscription[] = [];
 
   constructor(private taskService: TaskService, private stepService: StepService) {
@@ -43,11 +35,7 @@ export class StepComponent implements OnDestroy{
   }
 
   stepDoneTD($event: any, step: Step) {
-    if($event?.target?.checked){
-      step.done = true;
-    } else {
-      step.done = false;
-    }
+    step.done = $event?.target?.checked || false;
   }
 
   stepContextMenuFun($event: MouseEvent) {
@@ -55,8 +43,8 @@ export class StepComponent implements OnDestroy{
     $event.preventDefault();
     this.stepContextMenuEle.nativeElement.style.display = "block";
     this.stepContextMenuEle.nativeElement.style.position = "absolute";
-    this.stepContextMenuEle.nativeElement.style.left = $event.pageX+"px";
-    this.stepContextMenuEle.nativeElement.style.top = $event.pageY+"px";
+    this.stepContextMenuEle.nativeElement.style.left = `${$event.pageX}px`;
+    this.stepContextMenuEle.nativeElement.style.top = `${$event.pageY}px`;
   }
 
   menuStepComplete(checked: boolean) {
@@ -66,30 +54,22 @@ export class StepComponent implements OnDestroy{
   }
 
   closeStepContextMenu() {
-    if(this.stepContextMenuEle.nativeElement.style.display == "block"){
-      this.stepContextMenuEle.nativeElement.style.display  ="none";
+    if (this.stepContextMenuEle.nativeElement.style.display === "block") {
+      this.stepContextMenuEle.nativeElement.style.display = "none";
     }
   }
 
   promoteToTask($event: MouseEvent, arg1: Step) {
     this.closeStepContextMenu();
     this.deleteStep();
-    this.taskService.getAddTaskInTaskListSubject().next({
-      id: uuidv4(),
-      name: this.step.name!,
-      // Add this line
-      done: false,
-      important: false,
-      date: new Date()
-    });
+    const newTaskList = new TaskList();
+    newTaskList.id = uuidv4();
+    newTaskList.name = this.step.name!;
+    newTaskList.Tasks = [{ id: uuidv4(), name: this.step.name!, done: false, important: false, date: new Date() }];
+    this.taskService.getAddTaskInTaskListSubject().next([newTaskList]);
   }
-  
 
   deleteStep() {
-    this.stepService.getStepSubject().next({step : this.step, action : "delete"});
+    this.stepService.getStepSubject().next({ step: this.step, action: "delete" });
   }
-
-
-
-
 }
