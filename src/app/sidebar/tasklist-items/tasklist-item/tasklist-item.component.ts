@@ -40,8 +40,7 @@ export class TasklistItemComponent implements OnDestroy{
   }
 
   displayTaskListItem(arg0: TaskList) {
-    this.taskService.renderTaskList(arg0); // Remove the argument if renderTaskList does not need any arguments
-
+    this.taskService.renderTaskList(arg0); // Ensure renderTaskList is correctly implemented in TaskService
     this.clicked.emit(this.index);
   }
 

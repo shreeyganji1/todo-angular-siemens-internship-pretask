@@ -6,6 +6,7 @@ export default interface Task {
   done: boolean;
   important: boolean;
   date: Date;
+  taskListId?: string;
   steps?: Step[];
   description?: string | null;
   dueDate?: Date;

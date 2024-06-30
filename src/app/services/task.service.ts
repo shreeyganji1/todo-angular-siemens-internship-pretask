@@ -126,7 +126,6 @@ export class TaskService {
     return this.showTaskDetailsSubject;
   }
 }*/
-
 import { Injectable } from '@angular/core';
 import TaskList from '../Types/tasklist.model';
 import { BehaviorSubject, Observable, Subject, of } from 'rxjs';
@@ -169,8 +168,38 @@ export class TaskService {
       }
     }
   }
-
+  public renderSidePanel() {
+    this.renderSidePanelSubject.next(this.tasklistitems);
+  }
   
+  public deleteTaskList(taskListId: string): void {
+    this.tasklistitems = this.tasklistitems.filter(tl => tl.id !== taskListId);
+    this.saveTaskListToStorage();
+    this.taskListSubject.next([...this.tasklistitems]);
+  }
+
+
+  public addNewTaskList(newTaskList: {name: string, Tasks: any[], id: string}): void {
+    this.tasklistitems.push(newTaskList);
+    this.saveTaskListToStorage();
+    this.taskListSubject.next([...this.tasklistitems]);
+}
+  public renderTaskList(taskList: TaskList) {
+    this.taskListSubject.next([taskList]); // Wrap taskList in an array
+}
+  // In task.service.ts
+  public getTaskListItems(): TaskList[] {
+    return this.tasklistitems;
+}
+  // In task.service.ts
+  public addTaskInTaskList(newTask: Task, taskListId: string): void {
+    const taskList = this.tasklistitems.find(tl => tl.id === taskListId);
+    if (taskList) {
+      taskList.Tasks.push(newTask);
+      this.saveTaskListToStorage();
+  }
+}
+
 
   private loadImportantCountFromStorage(): void {
     if (typeof localStorage !== 'undefined') {
@@ -179,6 +208,8 @@ export class TaskService {
       this.updateImportantCountInTasks(importantCount);
     }
   }
+
+  
 
   private updateImportantCountInTasks(importantCount: number): void {
     for (const taskList of this.tasklistitems) {
@@ -189,111 +220,75 @@ export class TaskService {
       let count = 0;
       for (const taskList of this.tasklistitems) {
         for (const task of taskList.Tasks) {
-          if (count >= importantCount) {
-            return;
+          if (count < importantCount) {
+            task.important = true;
+            count++;
+          } else {
+            break;
           }
-          task.important = true;
-          count++;
+        }
+        if (count >= importantCount) {
+          break;
         }
       }
     }
   }
 
-  public setTaskListItems(tasklistitems: TaskList[]) {
-    this.tasklistitems = tasklistitems;
-    this.saveTaskListToStorage();
-  }
-
-  public getTaskListItems(): TaskList[] {
-    return this.tasklistitems;
-  }
-
-  public renderTaskList(taskList: TaskList) {
-    this.taskListSubject.next([taskList]); // Wrap taskList in an array
-  }
-
-  public getHideTodoDetail() {
-    return this.hideTodoDetail;
-  }
-
-  public getAddTaskInTaskListSubject() {
-    return this.addTaskInTaskListSubject;
-  }
-
-  public getTaskListSubject(): Observable<TaskList[]> {
-    return this.taskListSubject.asObservable();
-  }
-
-  public renderSidePanel() {
-    this.renderSidePanelSubject.next(this.tasklistitems);
-  }
-
-  public getRenderSidePanelSubject() {
-    return this.renderSidePanelSubject;
-  }
-
-  public addNewTaskList(newTaskList: TaskList) {
-    this.tasklistitems.push(newTaskList);
-    this.saveTaskListToStorage();
-    this.renderSidePanelSubject.next([...this.tasklistitems]);
-  }
-
-  public deleteTaskList(id: String) {
-    this.tasklistitems = this.tasklistitems.filter(taskList => taskList.id !== id);
-    this.saveTaskListToStorage();
-    this.renderSidePanelSubject.next(this.tasklistitems);
-    if (this.tasklistitems.length === 0) {
-      this.renderTaskList({ name: "", id: "", Tasks: [] });
+  saveImportantCountToStorage(count: number): void {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('importantCount', JSON.stringify(count));
     }
   }
 
-  public addTaskInTaskList(newTask: Task, taskListId: string) {
-    const taskListIndex = this.tasklistitems.findIndex(list => list.id === taskListId);
-    if (taskListIndex !== -1) {
-      newTask.date = new Date(); // Ensure date is set
-      this.tasklistitems[taskListIndex].Tasks.push(newTask);
-      this.saveTaskListToStorage();
-      this.renderSidePanelSubject.next([...this.tasklistitems]);
-      this.addTaskInTaskListSubject.next(newTask); 
+  getImportantCountFromStorage(): number {
+    if (typeof localStorage !== 'undefined') {
+      const importantCountStr = localStorage.getItem('importantCount');
+      return importantCountStr ? JSON.parse(importantCountStr) : 0;
     }
+    return 0;
   }
 
-  public deleteTaskInTaskList(id: String, taskListId?: String) {
-    for (let i = 0; i < this.tasklistitems.length; i++) {
-      if (this.tasklistitems[i].id === taskListId) {
-        this.tasklistitems[i].Tasks = this.tasklistitems[i].Tasks.filter(task => task.id !== id);
-        break;
-      } else {
-        this.tasklistitems[i].Tasks = this.tasklistitems[i].Tasks.filter(task => task.id !== id);
+  deleteTaskInTaskList(taskId: string, taskListId: string): void {
+    const taskList = this.tasklistitems.find(t => t.id === taskListId);
+    if (taskList) {
+      const taskIndex = taskList.Tasks.findIndex(t => t.id === taskId);
+      if (taskIndex !== -1) {
+        taskList.Tasks.splice(taskIndex, 1);
+        this.saveTaskListToStorage();
       }
     }
-    this.saveTaskListToStorage();
-    this.renderSidePanelSubject.next(this.tasklistitems);
   }
 
-  public getShowTaskDetailsSubject() {
-    return this.showTaskDetailsSubject;
-  }
-
-  public updateTaskImportant(taskId: string, important: boolean): void {
-    for (let taskList of this.tasklistitems) {
+  updateTaskImportant(taskId: string, important: boolean): void {
+    for (const taskList of this.tasklistitems) {
       const task = taskList.Tasks.find(t => t.id === taskId);
       if (task) {
         task.important = important;
+        this.saveTaskListToStorage();
         break;
       }
     }
-    this.saveTaskListToStorage();
   }
 
-  public saveImportantCountToStorage(importantCount: number): void {
-    if (typeof localStorage !== 'undefined') {
-      localStorage.setItem('importantCount', JSON.stringify(importantCount));
-    }
+  getTaskListSubject(): BehaviorSubject<TaskList[]> {
+    return this.taskListSubject;
   }
 
-  public getImportantCountFromStorage(): number {
-    const importantCountStr = localStorage.getItem('importantCount');
-    return importantCountStr ? JSON.parse(importantCountStr) : 0;
+  getHideTodoDetail(): Subject<String> {
+    return this.hideTodoDetail;
+  }
+
+  getAddTaskInTaskListSubject(): Subject<Task> {
+    return this.addTaskInTaskListSubject;
+  }
+
+  getRenderSidePanelSubject(): Subject<TaskList[]> {
+    return this.renderSidePanelSubject;
+  }
+
+  getShowTaskDetailsSubject(): Subject<{ task: Task, action: string }> {
+    return this.showTaskDetailsSubject;
   }
 }
+
+

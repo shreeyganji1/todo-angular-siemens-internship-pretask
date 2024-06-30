@@ -29,11 +29,11 @@ export class NewlistComponent {
 
   @HostListener('window:keydown.enter', ['$event'])
   handleKeyDownEnter(event: KeyboardEvent) {
-    if(this.toogleAddListFlag && this.newTaskList?.nativeElement.value != ''){
-      this.toogleAddListFlag = false;
-      this.taskService.addNewTaskList({name : this.newTaskList.nativeElement.value,  Tasks : [], id: uuidv4()});
-    }
+  if(this.toogleAddListFlag && this.newTaskList?.nativeElement.value != ''){
+    this.toogleAddListFlag = false;
+    this.taskService.addNewTaskList({name : this.newTaskList.nativeElement.value, Tasks : [], id: uuidv4()});
   }
+}
 
   toggleNewTaskList($event: MouseEvent) {
     this.toogleAddListFlag = true;

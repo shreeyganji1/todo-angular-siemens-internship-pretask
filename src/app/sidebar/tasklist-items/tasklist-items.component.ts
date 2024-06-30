@@ -136,6 +136,7 @@ import Task from '../../Types/task.model';
   imports: [TasklistItemComponent]
 })
 export class TasklistItemsComponent implements OnInit, AfterViewInit, OnDestroy {
+  [x: string]: any;
   tasklistitems: TaskList[] = [];
   activeItem!: number;
   @ViewChildren(TasklistItemComponent) taskListItemsComponent!: QueryList<TasklistItemComponent>;
@@ -183,16 +184,36 @@ export class TasklistItemsComponent implements OnInit, AfterViewInit, OnDestroy 
   onClicked($event: number) {
     this.activeItem = $event;
   }
+  public addTaskInTaskList(newTask: Task, taskListId: string) {
+    const taskListIndex = this.tasklistitems.findIndex(list => list.id === taskListId);
+    if (taskListIndex !== -1) {
+      newTask.date = new Date(); // Ensure date is set
+      this.tasklistitems[taskListIndex].Tasks.push(newTask);
+      this.saveTaskListToStorage();
+      // In tasklist-items.component.ts
+      this.taskService.getRenderSidePanelSubject().next([...this.tasklistitems]);
+      this.taskService.getAddTaskInTaskListSubject().next(newTask);
+
+    }
+  }
+
+  private saveTaskListToStorage() {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('tasklistitems', JSON.stringify(this.tasklistitems));
+    }
+  }
+
+  
+
+
 
   addTask(taskName: string, taskListId: string) {
     const newTask: Task = {
       id: uuidv4(),
       name: taskName,
       done: false,
-      
       important: false,
       date: new Date(),
-    
     };
     this.taskService.addTaskInTaskList(newTask, taskListId);
   }

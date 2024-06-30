@@ -18,7 +18,9 @@ export class FooterComponent {
   constructor(private taskService: TaskService) {}
 
   deleteTask($event : any) {
-    this.taskService.deleteTaskInTaskList(this.task.id);
+    
+    this.taskService.deleteTaskInTaskList(this.task.id, this.task.taskListId);
+
     this.taskService.getShowTaskDetailsSubject().next({task: this.task, action: "delete"});
   }
 
