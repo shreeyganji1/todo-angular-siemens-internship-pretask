@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [TaskComponent, CommonModule]
 })
+
 export class GroupedTasksComponent implements OnInit, OnDestroy {
   tasks: Task[] = [];
   importantTasks: Task[] = [];
