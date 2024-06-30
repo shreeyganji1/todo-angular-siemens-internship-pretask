@@ -10,22 +10,20 @@ import { CommonModule } from '@angular/common';
   templateUrl: './grouped-tasks.component.html',
   styleUrls: ['./grouped-tasks.component.css'],
   standalone: true,
-  imports: [TaskComponent,CommonModule]
+  imports: [TaskComponent, CommonModule]
 })
 export class GroupedTasksComponent implements OnInit, OnDestroy {
   tasks: Task[] = [];
+  importantTasks: Task[] = [];
   importantCount: number = 0;
   subs: Subscription[] = [];
   taskListId: string = 'default';
 
-
   constructor(private taskService: TaskService) {}
-
 
   ngOnInit(): void {
     this.loadTasks();
     this.importantCount = this.taskService.getImportantCountFromStorage();
-    
   }
 
   ngOnDestroy(): void {
@@ -35,25 +33,23 @@ export class GroupedTasksComponent implements OnInit, OnDestroy {
   loadTasks(): void {
     const tasksSubscription = this.taskService.getTasks().subscribe((tasks: Task[]) => {
       this.tasks = tasks;
-      this.updateImportantCount();
+      this.updateImportantTasks();
     });
     this.subs.push(tasksSubscription);
   }
 
-  updateImportantCount(): void {
-    const importantCount = this.tasks.filter(task => task.important).length;
-    this.taskService.saveImportantCountToStorage(importantCount);
-    this.importantCount = importantCount;
+  updateImportantTasks(): void {
+    this.importantTasks = this.tasks.filter(task => task.important);
+    this.importantCount = this.importantTasks.length;
+    this.taskService.saveImportantCountToStorage(this.importantCount);
   }
-
 
   taskImportantChanged(event: { taskId: string, important: boolean }): void {
     const task = this.tasks.find(t => t.id === event.taskId);
     if (task) {
       task.important = event.important;
       this.taskService.updateTaskImportant(event.taskId, event.important);
-      this.updateImportantCount();
+      this.updateImportantTasks();
     }
   }
-  
 }

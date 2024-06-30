@@ -3,12 +3,12 @@ import Task from '../../../Types/task.model';
 import { TaskcontextmenuService } from '../../../services/taskcontextmenu.service';
 import { TaskService } from '../../../services/task.service';
 import { Subscription } from 'rxjs';
-import { JsonPipe, DatePipe } from '@angular/common';
+import { CommonModule, JsonPipe, DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-task',
   standalone: true,
-  imports: [JsonPipe, DatePipe],
+  imports: [CommonModule, JsonPipe, DatePipe],
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.scss']
 })
@@ -20,8 +20,6 @@ export class TaskComponent implements OnDestroy {
   @Output() taskImportantChanged = new EventEmitter<{ taskId: string, important: boolean }>();
 
   @ViewChild('taskContextMenu') taskContextMenuEle!: ElementRef<HTMLDivElement>;
-  @ViewChild('taskInput') taskInput!: ElementRef<HTMLInputElement>;
-  @ViewChild('taskInputImportant') taskInputImportant!: ElementRef<HTMLInputElement>;
   subs: Subscription[] = [];
 
   constructor(private taskContextMenuService: TaskcontextmenuService,
@@ -49,28 +47,26 @@ export class TaskComponent implements OnDestroy {
     this.taskService.getHideTodoDetail().next(this.task.id);
   }
 
-  menuTaskComplete(checked: boolean): void {
+  menuTaskComplete(): void {
     this.closeTaskContextMenu();
-    this.taskInput.nativeElement.checked = !checked;
-    this.task.done = !checked;
+    this.task.done = !this.task.done;
   }
 
   taskDone($event: any): void {
     this.task.done = $event?.target?.checked ?? false;
   }
 
-  menuTaskImportant(checked: boolean): void {
+  menuTaskImportant(): void {
     this.closeTaskContextMenu();
-    this.taskInputImportant.nativeElement.checked = !checked;
-    this.task.important = !checked;
+    this.task.important = !this.task.important;
     this.taskImportantChanged.emit({ taskId: this.task.id as string, important: this.task.important });
   }
 
-  toggletaskImportant($event: any): void {
+  toggleImportant(): void {
     this.task.important = !this.task.important;
     this.taskImportantChanged.emit({ taskId: this.task.id, important: this.task.important });
   }
-
+  
   @HostListener('window:keydown.esc', ['$event'])
   handleKeyDownEsc(event: KeyboardEvent): void {
     this.taskContextMenuEle.nativeElement.style.display = 'none';
@@ -89,7 +85,8 @@ export class TaskComponent implements OnDestroy {
     if ($event.target.classList.contains('done') || $event.target.classList.contains('important')) return;
     this.taskService.getShowTaskDetailsSubject().next({ task: this.task, action: 'show' });
   }
-} 
+}
+
 
 
 /*import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, HostListener } from '@angular/core';

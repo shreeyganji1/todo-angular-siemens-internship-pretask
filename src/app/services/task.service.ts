@@ -127,7 +127,6 @@ export class TaskService {
   }
 }*/
 
-
 import { Injectable } from '@angular/core';
 import TaskList from '../Types/tasklist.model';
 import { BehaviorSubject, Observable, Subject, of } from 'rxjs';
@@ -148,6 +147,7 @@ export class TaskService {
 
   constructor() {
     this.loadTaskListFromStorage();
+    this.loadImportantCountFromStorage();
   }
 
   getTasks(): Observable<Task[]> {
@@ -170,6 +170,34 @@ export class TaskService {
     }
   }
 
+  
+
+  private loadImportantCountFromStorage(): void {
+    if (typeof localStorage !== 'undefined') {
+      const importantCountStr = localStorage.getItem('importantCount');
+      const importantCount = importantCountStr ? JSON.parse(importantCountStr) : 0;
+      this.updateImportantCountInTasks(importantCount);
+    }
+  }
+
+  private updateImportantCountInTasks(importantCount: number): void {
+    for (const taskList of this.tasklistitems) {
+      taskList.Tasks.forEach(task => task.important = false);
+    }
+
+    if (importantCount > 0) {
+      let count = 0;
+      for (const taskList of this.tasklistitems) {
+        for (const task of taskList.Tasks) {
+          if (count >= importantCount) {
+            return;
+          }
+          task.important = true;
+          count++;
+        }
+      }
+    }
+  }
 
   public setTaskListItems(tasklistitems: TaskList[]) {
     this.tasklistitems = tasklistitems;
@@ -256,20 +284,16 @@ export class TaskService {
       }
     }
     this.saveTaskListToStorage();
-  
-    
   }
 
   public saveImportantCountToStorage(importantCount: number): void {
-    localStorage.setItem('importantCount', JSON.stringify(importantCount));
-    
-
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('importantCount', JSON.stringify(importantCount));
+    }
   }
 
   public getImportantCountFromStorage(): number {
     const importantCountStr = localStorage.getItem('importantCount');
     return importantCountStr ? JSON.parse(importantCountStr) : 0;
-  
   }
-
 }

@@ -1,28 +1,20 @@
-<div  class="task" title="Tap to view details" (click)="showTaskDetails($event)" (contextmenu)="taskContextMenuFun($event)">
+<div class="task" title="Tap to view details" (click)="showTaskDetails($event)" (contextmenu)="taskContextMenuFun($event)">
   <input #taskInput type="checkbox" class="done" (change)="taskDone($event)" [checked]="task.done" />
-  <label for="">{{task.name}} &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;{{task.dueDate}} </label>
-  <input #taskInputImportant type="checkbox" class="important" title="Mark as important" (change)="toggletaskImportant($event)" [checked]="task.important" />
+  <label for="">{{task.name}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{task.dueDate | date}}</label>
+  <button (click)="toggleImportant()">{{ task.important ? '★' : '☆' }}</button>
 </div>
 
 <div class="task-contextmenu animate__animated animate__fadeInDown animate__faster" #taskContextMenu>
   <ul>
-    <li (click)="menuTaskComplete(taskInput.checked)">
-      @if (taskInput.checked){
-        <span class="material-symbols-outlined">radio_button_unchecked</span>
-        Mark as incomplete
-      } @else {
-        <span class="material-symbols-outlined">done</span>
-        Mark as complete
-      }
+    <li (click)="menuTaskComplete()">
+      <span *ngIf="task.done" class="material-symbols-outlined">radio_button_unchecked</span>
+      <span *ngIf="!task.done" class="material-symbols-outlined">done</span>
+      {{ task.done ? 'Mark as incomplete' : 'Mark as complete' }}
     </li>
-    <li (click)="menuTaskImportant(taskInputImportant.checked)">
-      @if (taskInputImportant.checked){
-        <span class="material-symbols-outlined">star_half</span>
-        Remove importance
-      } @else {
-        <span class="material-symbols-outlined">star</span>
-        Mark as important
-      }
+    <li (click)="menuTaskImportant()">
+      <span *ngIf="task.important" class="material-symbols-outlined">star_half</span>
+      <span *ngIf="!task.important" class="material-symbols-outlined">star</span>
+      {{ task.important ? 'Remove importance' : 'Mark as important' }}
     </li>
     <li class="delete" (click)="deleteTask()">
       <span class="material-symbols-outlined">delete</span>
@@ -30,3 +22,4 @@
     </li>
   </ul>
 </div>
+
