@@ -7,12 +7,16 @@
   </button>
 </div>
 
+
 <div *ngFor="let taskList of taskLists">
-  
+  <h3>{{ taskList.name }}</h3>
   <div *ngFor="let task of taskList.Tasks">
-    <app-task [task]="task" [taskListId]="taskList.id" (deleteTaskId)="deleteTask($event)"></app-task>
+    <app-task [task]="task" [taskListId]="taskList.id" (deleteTaskId)="deleteTask($event, taskList.id)"></app-task>
   </div>
 </div>
+
+  
+
 
 
 <ng-template #noTasks>

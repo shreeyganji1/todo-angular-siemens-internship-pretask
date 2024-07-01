@@ -178,8 +178,13 @@ export class TasklistComponent implements OnInit, OnDestroy {
     }
   }
 
-  deleteTask(id: string): void {
-    this.tasks = this.tasks.filter(task => task.id !== id);
-    this.filterTasks(); // Re-filter tasks after deletion
+  
+
+  deleteTask(taskId: string, taskListId: string): void {
+    const taskList = this.taskLists.find(list => list.id === taskListId);
+    if (taskList) {
+      taskList.Tasks = taskList.Tasks.filter(task => task.id !== taskId);
+      this.taskService.deleteTaskInTaskList(taskId, taskListId);
+    }
   }
 }

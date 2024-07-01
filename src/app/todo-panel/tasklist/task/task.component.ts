@@ -46,6 +46,7 @@ export class TaskComponent implements OnDestroy {
     this.deleteTaskId.emit(this.task.id as string);
     this.taskService.getHideTodoDetail().next(this.task.id);
   }
+  
 
   menuTaskComplete(): void {
     this.closeTaskContextMenu();
@@ -83,7 +84,11 @@ export class TaskComponent implements OnDestroy {
 
   showTaskDetails($event: any): void {
     if ($event.target.classList.contains('done') || $event.target.classList.contains('important')) return;
-    this.taskService.getShowTaskDetailsSubject().next({ task: this.task, action: 'show' });
+    this.taskService.getShowTaskDetailsSubject().next({
+      task: this.task,
+      action: 'show',
+      taskListId: this.taskListId
+    });
   }
 }
 

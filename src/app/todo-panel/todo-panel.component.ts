@@ -22,6 +22,7 @@ export class TodoPanelComponent implements OnDestroy {
 
   todoDetailClass: string = "todo-detail";
   task!: Task;
+  taskListId: string;
   subs: Subscription[] = [];
 
   constructor(private taskService: TaskService) {
@@ -33,7 +34,8 @@ export class TodoPanelComponent implements OnDestroy {
         this.todoDetailClass = "todo-detail";
       } else if (taskAction.action == "delete") {
         this.todoDetailClass = "todo-detail";
-        this.taskListComponent.deleteTask(taskAction.task.id);
+        this.taskListComponent.deleteTask(taskAction.task.id, taskAction.taskListId);
+
       }
     });
     this.subs.push(showTaskDetailsSubscription);

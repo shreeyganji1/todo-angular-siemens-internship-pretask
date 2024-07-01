@@ -12,8 +12,9 @@ import { DatePipe } from '@angular/common';
 })
 export class FooterComponent {
 
-  @Input()
-  public task!: Task;
+  @Input() task: Task;
+  @Input() taskListId: string; // Add this line
+ 
 
   constructor(private taskService: TaskService) {}
 
@@ -21,7 +22,11 @@ export class FooterComponent {
     
     this.taskService.deleteTaskInTaskList(this.task.id, this.task.taskListId);
 
-    this.taskService.getShowTaskDetailsSubject().next({task: this.task, action: "delete"});
+    this.taskService.getShowTaskDetailsSubject().next({
+      task: this.task,
+      action: 'delete',
+      taskListId: this.taskListId // Replace with appropriate variable
+    });
   }
 
 }

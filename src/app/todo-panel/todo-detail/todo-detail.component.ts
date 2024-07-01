@@ -19,8 +19,8 @@ import { Subscription } from 'rxjs';
 })
 export class TodoDetailComponent implements OnDestroy {
 
-  @Input()
-  public task!: Task;
+  @Input() task: Task;
+  @Input() taskListId: string;
 
   @ViewChild('todo-detail')
   todoDetail!: ElementRef<HTMLDivElement>;
@@ -57,7 +57,12 @@ export class TodoDetailComponent implements OnDestroy {
   }
 
   closeTodoDetail($event?: MouseEvent) {
-    this.taskService.getShowTaskDetailsSubject().next({ task: this.task, action: "hide" });
+    this.taskService.getShowTaskDetailsSubject().next({
+      task: this.task,
+      action: 'hide',
+      taskListId: this.taskListId // Replace with appropriate variable
+    });
+    
   }
 
   taskImportantTD($event: any) {

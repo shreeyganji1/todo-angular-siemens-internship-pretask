@@ -260,10 +260,17 @@ import TaskList from '../Types/tasklist.model';
 import { BehaviorSubject, Observable, Subject, of } from 'rxjs';
 import Task from '../Types/task.model';
 
+
+interface TaskDetail {
+  task: Task;
+  action: String;
+  taskListId: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
-export class TaskService {
+export class TaskService { 
 
   private tasks: Task[] = [];
   public tasklistitems: TaskList[] = [];
@@ -271,7 +278,7 @@ export class TaskService {
   private hideTodoDetail = new Subject<String>();
   private renderSidePanelSubject = new Subject<TaskList[]>();
   private addTaskInTaskListSubject = new BehaviorSubject<TaskList[]>([]);
-  private showTaskDetailsSubject = new BehaviorSubject<{ task: Task; action: String } | null>(null);
+  private showTaskDetailsSubject = new BehaviorSubject<TaskDetail | null>(null);
 
   constructor() {
     this.loadTaskListsFromLocalStorage(); // Ensure task lists are loaded on service initialization
@@ -298,8 +305,9 @@ export class TaskService {
     }
   }
 
+  
   public getTaskLists(): Observable<TaskList[]> {
-    return this.taskListSubject.asObservable();
+    return of(this.tasklistitems);
   }
 
   public getTaskListSubject(): BehaviorSubject<TaskList[]> {
@@ -340,8 +348,8 @@ export class TaskService {
     this.taskListSubject.next([taskList]); // Wrap taskList in an array
   }
 
-  private saveTaskListsToLocalStorage(): void {
-    if (this.isLocalStorageAvailable()) {
+  private saveTaskListsToLocalStorage() {
+    if (typeof localStorage !== 'undefined') {
       localStorage.setItem('tasklistitems', JSON.stringify(this.tasklistitems));
     }
   }
@@ -373,7 +381,7 @@ export class TaskService {
     return this.hideTodoDetail;
   }
 
-  public getShowTaskDetailsSubject(): BehaviorSubject<{ task: Task; action: String } | null> {
+  public getShowTaskDetailsSubject(): BehaviorSubject<TaskDetail | null> {
     return this.showTaskDetailsSubject;
   }
 
