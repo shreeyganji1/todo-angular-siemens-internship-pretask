@@ -1,5 +1,7 @@
-div.main{
+div.main {
   display: grid;
   grid-template-columns: 1fr 4fr;
-  grid-template-rows: auto;
+  grid-template-rows: 100vh; /* Ensure it uses full viewport height */
+  height: 100vh; /* Ensure the main container uses the full viewport height */
+  overflow: hidden; /* Prevent scrolling */
 }

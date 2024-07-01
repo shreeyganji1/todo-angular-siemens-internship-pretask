@@ -1,6 +1,6 @@
 <div class="task" title="Tap to view details" (click)="showTaskDetails($event)" (contextmenu)="taskContextMenuFun($event)">
   <input #taskInput type="checkbox" class="done" (change)="taskDone($event)" [checked]="task.done" />
-  <label for="">{{task.name}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{task.dueDate | date}}</label>
+  <label for="">{{task.name}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{task.dueDate | date}}</label>
   <button (click)="toggleImportant()">{{ task.important ? '★' : '☆' }}</button>
 </div>
 

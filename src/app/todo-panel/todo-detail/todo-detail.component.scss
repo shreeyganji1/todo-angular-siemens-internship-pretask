@@ -1,6 +1,21 @@
-@mixin center-flex($jc: center, $ai: center) {display: flex;justify-content: $jc;align-items: $ai;}
+@mixin center-flex($jc: center, $ai: center) {
+  display: flex;
+  justify-content: $jc;
+  align-items: $ai;
+}
+
+div.main {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 50px 1fr 50px; /* Adjusted to use flexible height for content */
+  color: white;
+  font-family: 'noto sans display', 'Courier New', Courier, monospace;
+  font-size: smaller;
+  height: 100vh; /* Ensure it uses full viewport height */
+}
 
 div.close {
+  color: black;
   @include center-flex(right, normal);
   align-self: center;
   span {
@@ -8,12 +23,16 @@ div.close {
     cursor: pointer;
     &:active {
       opacity: 0.5;
+      color: #141414;
     }
   }
 }
 
 div.content {
   padding: 0.5em 0.5em;
+  overflow-y: auto; /* Ensure content scrolls if it overflows */
+  height: calc(100vh - 100px); /* Adjust height to fit within the available space */
+
   div.task-detail {
     background-color: #141414;
     border-radius: 3px;
@@ -37,7 +56,6 @@ div.content {
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;
-
       width: 20px;
       height: 20px;
       border: 2px solid #ccc;
@@ -46,7 +64,7 @@ div.content {
       &:checked {
         background-color: #7082cc;
         border: 2px solid #7082cc;
-        &::after{
+        &::after {
           content: "\2714";
           font-size: 12px;
           color: #fff;
@@ -101,13 +119,14 @@ div.content {
   div.duedate {
     padding-top: 2em;
     border-top: 1px solid #ffffff1a;
-    label{
+    label {
       padding: 1em;
+      color: black;
     }
     input[type="date"] {
       color-scheme: dark;
       background-color: #141414;
-      color: white;
+      color: rgb(255, 254, 254);
       width: 100%;
       padding: 1em;
       font-family: 'noto sans display', 'Courier New';
@@ -118,7 +137,7 @@ div.content {
     }
   }
 
-  div.steps{
+  div.steps {
     div.add-step-span {
       cursor: pointer;
       background-color: #141414;
@@ -130,11 +149,10 @@ div.content {
         margin-right: 0.3em;
       }
     }
-    div.add-step-input{
+    div.add-step-input {
       display: grid;
-      grid-template-columns: 50px  auto;
+      grid-template-columns: 50px auto;
       background-color: #141414;
-      height: 125%;
       span {
         place-self: center flex-end;
         opacity: 0.6;
@@ -147,10 +165,18 @@ div.content {
         padding: 1em 1em;
         border: 1px solid transparent;
         width: 80%;
-        &:focus{
+        &:focus {
           outline: none;
         }
       }
     }
   }
+}
+
+div.footer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid #ffffff1a;
+  height: 50px; /* Ensure it uses the remaining height */
 }

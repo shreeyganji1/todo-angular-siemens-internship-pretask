@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
 })
 export class TaskheaderComponent implements OnInit, OnDestroy{
 
-  title: string = "no title";
+  title: string = "Untitled";
   id!: string;
   toggleHeaderRenameFlag: boolean = false;
   subs: Subscription[] = [];

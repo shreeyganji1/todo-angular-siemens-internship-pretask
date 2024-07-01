@@ -1,7 +1,7 @@
 div.add-task {
   margin: 0em 1em;
-  background-color: #041413;
-  color: #226b67;
+  background-color: #00ffb9;
+  color: #060606;
   padding: 1em 1em;
   border-radius: 0.3em;
   font-family:  "noto sans display", 'Courier New', Courier, monospace;
@@ -12,7 +12,7 @@ div.add-task {
     margin-right: 0.5em;
   }
   &:hover{
-    background-color: #031413;
+    background-color: #98e9d6;
     cursor: pointer;
   }
   input.new-task{
@@ -22,7 +22,7 @@ div.add-task {
     outline: none;
     box-shadow: none;
     border: none;
-    color: rgb(40, 119, 119);
+    color: rgb(10, 10, 10);
     font-family: 'noto sans display', 'Courier New', Courier, monospace;
     font-weight: 400;
   }

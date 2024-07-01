@@ -1,41 +1,42 @@
 @if(task){
-<div class="main">
-  <div class="close">
-    <span class="material-symbols-outlined" (click)="closeTodoDetail($event)">
-      close
+  <div class="main">
+    <div class="close">
+      <span class="material-symbols-outlined" (click)="closeTodoDetail($event)">
+        close
       </span>
+    </div>
+    <div class="content">
+      <div class="task-detail">
+        <input #taskInput type="checkbox" class="done" (change)="taskDoneTD($event)" [checked]="task.done" />
+        <label for="">{{task.name}}</label>
+        <input #taskInputImportant type="checkbox" class="important" title="Mark as important" (change)="taskImportantTD($event)" [checked]="task.important" />
+      </div>
+      <div class="steps">
+        @for(step of task.steps; track $index){
+          <app-step [step]="step"></app-step>
+        }
+        @if(!toggleAddStepFlag){
+          <div class="add-step-span" (click)="toggleAddStep($event)">
+            <span class="material-symbols-outlined">add</span> Add a step
+          </div>
+        } @else {
+          <div class="add-step-input">
+            <span class="material-symbols-outlined">add</span>
+            <input #stepInput class="new-step" type="text"/>
+          </div>
+        }
+      </div>
+      <div class="duedate">
+        <label>Add due date</label>
+        <input name="duedate" type="date" title="Add due date" id="duedate" [(ngModel)]="task.dueDate"/>
+      </div>
+      <div class="description">
+        <textarea name="description" placeholder="Add a note" id="description" [(ngModel)]="task.description" cols="30" rows="5"></textarea>
+      </div>
+    </div>
+    <div class="footer-container">
+      <app-footer style="width: 100%;" [task]="task"></app-footer>
+    </div>
   </div>
-  <div class="content">
-    <div class="task-detail">
-      <input #taskInput type="checkbox" class="done" (change)="taskDoneTD($event)" [checked]="task.done" />
-      <label for="">{{task.name}}</label>
-      <input #taskInputImportant type="checkbox" class="important" title="Mark as important" (change)="taskImportantTD($event)" [checked]="task.important" />
-    </div>
-    <div class="steps">
-      @for(step of task.steps; track $index){
-        <app-step [step]="step"></app-step>
-      }
-      @if(!toggleAddStepFlag){
-        <div class="add-step-span" (click)="toggleAddStep($event)">
-          <span class="material-symbols-outlined">add</span> Add a step
-        </div>
-      } @else {
-        <div class="add-step-input">
-          <span class="material-symbols-outlined">add</span>
-          <input #stepInput class="new-step" type="text"/>
-        </div>
-      }
-    </div>
-    <div class="duedate">
-      <label>Add due date</label>
-      <input name="duedate" type="date" title="Add due date" id="duedate" [(ngModel)]="task.dueDate"/>
-    </div>
-    <div class="description">
-      <textarea name="description" placeholder="Add a note" id="description" [(ngModel)]="task.description" cols="30" rows="5"></textarea>
-    </div>
-  </div>
-  <div style="display: flex; justify-content: center; align-items:  center; border-top: 1px solid #ffffff1a;">
-    <app-footer style="width: 100%;" [task]="task"></app-footer>
-  </div>
-</div>
-}
+  }
+  

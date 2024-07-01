@@ -1,7 +1,7 @@
 div.newlist {
   margin: 0em 1em;
   background-color: transparent;
-  color: #fff;
+  color: #f9faf9;
   padding: 1em 1em;
   border-radius: 0.3em;
   font-family: "noto sans display", "Courier New", Courier, monospace;
@@ -12,17 +12,18 @@ div.newlist {
     margin-right: 0.5em;
   }
   &:hover {
-    background-color: #1a4a43;
+    background-color: #00ffb9;
     box-shadow: inset -4px;
     cursor: pointer;
+    color:#000000;
   }
   input {
-    background-color: #0e4846;
+    background-color: #abebda;
     outline: none;
     box-shadow: none;
     border: none;
     border-radius: 0.3em;
-    color: white;
+    color: #000000;
     font-family: 'noto sans display', 'Courier New', Courier, monospace;
     font-weight: 400;
     width: 100%;

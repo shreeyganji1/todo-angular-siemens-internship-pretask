@@ -1,5 +1,5 @@
 div.todo-panel {
-  background-color: #103535;
+  background-color: #f1f6f6;
   height: 100vh;
   display: grid;
   grid-template-columns: auto;
@@ -11,7 +11,7 @@ div.todo-panel:has(div.todo-detail.active) {
 }
 
 div.main {
-  background-color: #419999;
+  background-color: #f1f6f6;
   height: 100vh;
   display: grid;
   grid-template-rows: 100px auto 100px;
@@ -19,7 +19,7 @@ div.main {
 
 div.todo-detail {
   height: 100vh;
-  border-left: 1px solid #032828;
+  border-left: 1px solid  #00ffb9; ;
   container-name: todo-detail;
   transition: 1px ease-in-out all;
 }
@@ -30,7 +30,7 @@ div.tasklist {
   overflow-y: scroll;
 
   &::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(20, 83, 83, 0.3);
+    -webkit-box-shadow: inset 0 0 6px #00ffb9;
     border-radius: 10px;
     background-color: transparent;
   }
@@ -42,17 +42,17 @@ div.tasklist {
 
   &::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 8, 8, 0.3);
+    -webkit-box-shadow: inset 0 0 6px #00ffb9;
     background-color: #555;
   }
 }
 
 h1 {
   font-size: 24px;
-  color: #187b76;
+  color: #011312;
 }
 
 p {
   font-size: 18px;
-  color: #247c7e;
+  color: #011312;
 }

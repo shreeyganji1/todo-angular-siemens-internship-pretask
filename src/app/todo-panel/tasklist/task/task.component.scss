@@ -1,17 +1,17 @@
 div.task {
   margin: 0em 0em 1em 1em;  // Adjusted margin-bottom to 1em for more gap
-  background-color: #051f1e;
+  background-color: #00ffb9;
   color: #0b2121;
   padding: 1em 1em;
   border-radius: 0.3em;
   font-family: 'noto sans display', Courier, monospace;
   font-weight: 600;
-  color: rgb(245, 249, 249);
+  color: rgb(0, 0, 0);
   display: grid;
   grid-template-columns: 35px auto 35px;
-  border: 1px solid rgba($color: #268278, $alpha: 0.1);
+  border: 1px solid rgba($color: #00ffb9, $alpha: 0.1);
   &:hover {
-    background-color: #062b2b;
+    background-color: #00ffb9;
   }
   input[type="checkbox"].done {
     margin-right: 1em;
@@ -34,7 +34,7 @@ div.task-contextmenu {
   -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
   border: 2px solid rgba($color: #f0f5f5, $alpha: 0.1);
-  background-color: #062d297c;
+  background-color: #00ffb9;
   ul{
     list-style-type: none;
     padding: 0px;
@@ -53,7 +53,7 @@ div.task-contextmenu {
       padding: 0.5em 1em;
       color: rgb(9, 33, 31);
       &:hover {
-        background-color: #05302d9d;
+        background-color: #0005059d;
         border-radius: 0.2em;
       }
     }
@@ -77,9 +77,9 @@ input[type="checkbox"].done {
 
 /* Style for checked checkbox */
 input[type="checkbox"].done:checked {
-  border-color: #0b5757;
-  background-color: #0e5252;
-  border: 2px solid #0f6d6c;
+  border-color: #001010;
+  background-color: #000202;
+  border: 2px solid #000c0c;
 }
 
 /* Style for checked checkbox after element (checkmark) */
@@ -125,10 +125,10 @@ input[type="checkbox"].important:checked::before {
 
 .task-name {
   font-size: 16px; /* Ensure font size is readable */
-  color: #e7eeee; /* Ensure color is set to something visible */
+  color: #000b0b; /* Ensure color is set to something visible */
 }
 
 .task-date {
   font-size: 12px;
-  color: #888;
+  color: #000000;
 }

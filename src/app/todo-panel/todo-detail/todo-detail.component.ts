@@ -15,10 +15,9 @@ import { Subscription } from 'rxjs';
   standalone: true,
   imports: [ DatePipe, FormsModule, FooterComponent, StepComponent],
   templateUrl: './todo-detail.component.html',
-  styles: ['div.main { display: grid; grid-template-columns: 1fr; grid-template-rows: 50px auto 50px; color: white; font-family: \'noto sans display\', \'Courier New\', Courier, monospace;font-size: smaller; height: 100vh;  }'],
-  styleUrl: './todo-detail.component.scss'
+  styleUrls: ['./todo-detail.component.scss']
 })
-export class TodoDetailComponent implements OnDestroy{
+export class TodoDetailComponent implements OnDestroy {
 
   @Input()
   public task!: Task;
@@ -44,40 +43,32 @@ export class TodoDetailComponent implements OnDestroy{
 
     // hide todo detail if the active item is deleted in tasklist.
     const hideTodoDetailSubscription = this.taskService.getHideTodoDetail().subscribe(id => {
-      if(id == this.task.id){
+      if (id == this.task.id) {
         this.closeTodoDetail();
       }
-    })
+    });
 
     this.subs.push(stepServiceSubscription);
     this.subs.push(hideTodoDetailSubscription);
   }
 
   ngOnDestroy(): void {
-    this.subs.forEach(sub =>sub.unsubscribe());
+    this.subs.forEach(sub => sub.unsubscribe());
   }
 
   closeTodoDetail($event?: MouseEvent) {
-    this.taskService.getShowTaskDetailsSubject().next({task: this.task, action: "hide"});
+    this.taskService.getShowTaskDetailsSubject().next({ task: this.task, action: "hide" });
   }
 
   taskImportantTD($event: any) {
-    if($event?.target?.checked){
-      this.task.important = true;
-    } else {
-      this.task.important = false;
-    }
+    this.task.important = $event?.target?.checked || false;
   }
 
   taskDoneTD($event: any) {
-    if($event?.target?.checked){
-      this.task.done = true;
-    } else {
-      this.task.done = false;
-    }
+    this.task.done = $event?.target?.checked || false;
   }
 
-  toggleAddStep(event: any){
+  toggleAddStep(event: any) {
     this.toggleAddStepFlag = true;
     this.stepInputField?.nativeElement.focus();
   }
@@ -89,11 +80,11 @@ export class TodoDetailComponent implements OnDestroy{
 
   @HostListener('window:keydown.enter', ['$event'])
   handleKeyDownEnter(event: KeyboardEvent) {
-    if(this.stepInputField && this.stepInputField.nativeElement.value != ''){
-      if(typeof this.task.steps == "undefined") {
-        this.task.steps = [{id: uuidv4(), name: this.stepInputField.nativeElement.value,  done: false}];
+    if (this.stepInputField && this.stepInputField.nativeElement.value != '') {
+      if (typeof this.task.steps == "undefined") {
+        this.task.steps = [{ id: uuidv4(), name: this.stepInputField.nativeElement.value, done: false }];
       } else {
-        this.task.steps?.push({id: uuidv4(), name: this.stepInputField.nativeElement.value,  done: false})
+        this.task.steps?.push({ id: uuidv4(), name: this.stepInputField.nativeElement.value, done: false });
       }
       this.toggleAddStepFlag = false;
     }
@@ -103,4 +94,5 @@ export class TodoDetailComponent implements OnDestroy{
     this.task.steps = this.task.steps?.filter(step => step.id != id);
   }
 }
+
 

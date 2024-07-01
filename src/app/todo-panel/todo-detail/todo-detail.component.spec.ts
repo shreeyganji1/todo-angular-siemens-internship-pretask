@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TodoDetailComponent } from './todo-detail.component';
 
 describe('TodoDetailComponent', () => {
@@ -21,3 +20,4 @@ describe('TodoDetailComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
