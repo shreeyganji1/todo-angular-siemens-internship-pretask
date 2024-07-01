@@ -7,12 +7,15 @@
   </button>
 </div>
 
-<div *ngIf="filteredTasks.length > 0; else noTasks">
-  <div *ngFor="let task of filteredTasks">
-    <app-task [task]="task" [taskListId]="taskListId" (deleteTaskId)="deleteTask($event)"></app-task>
+<div *ngFor="let taskList of taskLists">
+  
+  <div *ngFor="let task of taskList.Tasks">
+    <app-task [task]="task" [taskListId]="taskList.id" (deleteTaskId)="deleteTask($event)"></app-task>
   </div>
 </div>
+
 
 <ng-template #noTasks>
   <p> </p>
 </ng-template>
+

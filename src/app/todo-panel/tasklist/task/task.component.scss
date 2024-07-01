@@ -1,6 +1,7 @@
 div.task {
   margin: 0em 0em 1em 1em;  // Adjusted margin-bottom to 1em for more gap
-  background-color: #00ffb9;
+  
+  background: linear-gradient(90deg, hsl(164, 100%, 50%) 0%, #9de4d1 100%);
   color: #0b2121;
   padding: 1em 1em;
   width:98%;

@@ -1,6 +1,6 @@
 div.add-task {
   margin: 0em 1em;
-  background-color: #00ffb9;
+  background: linear-gradient(90deg, hsl(164, 100%, 50%) 0%, #ace6d6 100%);
   color: #060606;
   padding: 1em 1em;
   border-radius: 0.3em;
@@ -12,7 +12,8 @@ div.add-task {
     margin-right: 0.5em;
   }
   &:hover{
-    background-color: #98e9d6;
+    
+    background: linear-gradient(90deg, hsl(164, 100%, 50%) 0%, #ace6d6 100%);
     cursor: pointer;
   }
   input.new-task{

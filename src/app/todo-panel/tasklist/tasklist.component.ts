@@ -37,10 +37,9 @@ export class TasklistComponent implements OnInit, OnDestroy {
     this.tasks = this.tasks.filter(task => task.id !== id);
   }
 }*/
-
-
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import Task from '../../Types/task.model';
+import TaskList from '../../Types/tasklist.model';
 import { TaskComponent } from "./task/task.component";
 import { TaskService } from '../../services/task.service';
 import { CommonModule } from '@angular/common';
@@ -57,10 +56,10 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrls: ['./tasklist.component.scss']
 })
 export class TasklistComponent implements OnInit, OnDestroy {
+  taskLists: TaskList[] = [];
   tasks: Task[] = [];
   filteredTasks: Task[] = [];
-  taskListId!: string;
-  private subscription!: Subscription;
+  private subscription: Subscription = new Subscription();
 
   presets = [
     {
@@ -130,19 +129,16 @@ export class TasklistComponent implements OnInit, OnDestroy {
   constructor(private taskService: TaskService) { }
 
   ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+    this.subscription.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.subscription = this.taskService.getTaskListSubject().subscribe(taskLists => {
-      if (taskLists.length > 0) {
-        const currentTaskList = taskLists[0]; // Assuming you want the first task list
-        this.tasks = currentTaskList.Tasks ?? [];
-        this.filteredTasks = this.tasks; // Initialize filteredTasks with all tasks
-      }
-    });
+    this.subscription.add(
+      this.taskService.getTaskLists().subscribe(taskLists => {
+        this.taskLists = taskLists;
+        this.updateTasks(); // Load tasks for the first task list initially
+      })
+    );
   }
 
   selectPreset(presetDateRange: { start: Date; end: Date }): void {
@@ -153,16 +149,24 @@ export class TasklistComponent implements OnInit, OnDestroy {
     }
   }
 
+  updateTasks(): void {
+    if (this.taskLists.length > 0) {
+      const currentTaskList = this.taskLists[0]; // Assuming you want the first task list
+      this.tasks = currentTaskList.Tasks ?? [];
+      this.filteredTasks = this.tasks; // Initialize filteredTasks with all tasks
+    }
+  }
+
   filterTasks(): void {
     if (this.selectedDateRange) {
       const start = moment(this.selectedDateRange.start).startOf('day');
       const end = moment(this.selectedDateRange.end).endOf('day');
       this.filteredTasks = this.tasks.filter(task => {
         const taskDueDate = moment(task.dueDate);
-        if (this.selectedDateRange!.start.getTime() === new Date(0).getTime()) {
+        if (this.selectedDateRange.start.getTime() === new Date(0).getTime()) {
           // Handle "Earlier" case
           return taskDueDate.isBefore(end);
-        } else if (this.selectedDateRange!.end.getTime() === new Date(8640000000000000).getTime()) {
+        } else if (this.selectedDateRange.end.getTime() === new Date(8640000000000000).getTime()) {
           // Handle "Later" case
           return taskDueDate.isAfter(start);
         } else {
