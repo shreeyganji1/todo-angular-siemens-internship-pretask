@@ -1,19 +1,23 @@
 div.task {
   margin: 0em 0em 1em 1em;  // Adjusted margin-bottom to 1em for more gap
   
-  background: linear-gradient(90deg, hsl(164, 100%, 50%) 0%, #9de4d1 100%);
-  color: #0b2121;
+  background: linear-gradient(90deg, hsl(200, 21%, 16%) 0%, #78848e 100%);
+  border-color: #00ffb9;
+  color: #fafcfb;
+  border: 5px solid;
   padding: 1em 1em;
   width:98%;
   border-radius: 0.3em;
   font-family: 'noto sans display', Courier, monospace;
   font-weight: 600;
-  color: rgb(0, 0, 0);
   display: grid;
   grid-template-columns: 35px auto 35px;
   border: 1px solid rgba($color: #00ffb9, $alpha: 0.1);
   &:hover {
-    background-color: #00ffb9;
+    background: linear-gradient(90deg, hsl(197, 12%, 48%) 0%, #95a09e 100%);
+    border-color: #00ffb9;
+    border-width: bold;
+    border: 2px solid;
   }
   input[type="checkbox"].done {
     margin-right: 1em;
@@ -36,7 +40,8 @@ div.task-contextmenu {
   -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
   border: 2px solid rgba($color: #f0f5f5, $alpha: 0.1);
-  background-color: #00ffb9;
+  
+  background: linear-gradient(90deg, hsl(164, 7%, 55%) 0%, #ced3d2 100%);
   ul{
     list-style-type: none;
     padding: 0px;
@@ -53,9 +58,9 @@ div.task-contextmenu {
       justify-content: left;
       align-items: center;
       padding: 0.5em 1em;
-      color: rgb(9, 33, 31);
+      color: #00ffb9;
       &:hover {
-        background-color: #0005059d;
+        background-color: #00ffb9;
         border-radius: 0.2em;
       }
     }
@@ -127,10 +132,10 @@ input[type="checkbox"].important:checked::before {
 
 .task-name {
   font-size: 16px; /* Ensure font size is readable */
-  color: #000b0b; /* Ensure color is set to something visible */
+  color: #fefefe; /* Ensure color is set to something visible */
 }
 
 .task-date {
   font-size: 12px;
-  color: #000000;
+  color: #fefcfc;
 }

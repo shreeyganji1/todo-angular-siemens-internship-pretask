@@ -9,7 +9,7 @@
 
 
 <div *ngFor="let taskList of taskLists">
-  <h3>{{ taskList.name }}</h3>
+  <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ taskList.name }}</h3>
   <div *ngFor="let task of taskList.Tasks">
     <app-task [task]="task" [taskListId]="taskList.id" (deleteTaskId)="deleteTask($event, taskList.id)"></app-task>
   </div>

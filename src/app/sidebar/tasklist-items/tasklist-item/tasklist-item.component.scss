@@ -12,7 +12,8 @@ div.tasklist-item {
   border-left: 2px solid transparent;
   &:hover{
     // background-color: #24242476;
-    background: linear-gradient(90deg, hsl(164, 100%, 50%) 0%, #9de4d1 100%);
+    
+    background: linear-gradient(90deg, hsl(197, 7%, 40%) 0%, #78848e 100%);
     border-left: 1px solid #ffffff77;
   }
   span.material-symbols-outlined {
@@ -33,7 +34,8 @@ div.tasklist-item {
 .active {
   background-color: #27272a !important;
   border-left: 1px solid rgba($color: #000000, $alpha: 0.5) !important;
-  background: linear-gradient(90deg, hsl(164, 100%, 50%) 0%, #9de4d1 100%);
+  
+  background: linear-gradient(90deg, hsl(200, 18%, 13%) 0%, #434a4f 100%);
 }
 
 div.tasklist-contextmenu{

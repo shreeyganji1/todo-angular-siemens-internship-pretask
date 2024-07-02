@@ -1,5 +1,5 @@
 div.todo-panel {
-  background-color: #f1f6f6;
+  background-color: #283b44;
   height: 100vh;
   display: grid;
   grid-template-columns: auto;
@@ -11,7 +11,7 @@ div.todo-panel:has(div.todo-detail.active) {
 }
 
 div.main {
-  background-color: #f1f6f6;
+  background-color: #061222;
   height: 100vh;
   display: grid;
   grid-template-rows: 100px auto 100px;
