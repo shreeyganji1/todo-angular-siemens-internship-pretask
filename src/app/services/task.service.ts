@@ -296,6 +296,7 @@ export class TaskService {
   }
 
   private loadTaskListsFromLocalStorage(): void {
+   
     if (this.isLocalStorageAvailable()) {
       const localTaskLists = localStorage.getItem('tasklistitems');
       if (localTaskLists) {

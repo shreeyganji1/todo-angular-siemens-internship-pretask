@@ -153,9 +153,12 @@ export class TasklistItemsComponent implements OnInit, AfterViewInit, OnDestroy 
   }
   
   ngOnInit(): void {
+    debugger
+    console.log("WORKED")
     this.tasklistitems = this.taskService.getTaskListItems();
     if (!this.tasklistitems.length) {
       this.initializeDefaultTaskLists();
+      console.log("worked")
     }
   }
 

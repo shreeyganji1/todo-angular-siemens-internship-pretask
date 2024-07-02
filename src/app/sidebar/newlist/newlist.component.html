@@ -1,7 +1,10 @@
 <div class="newlist" (click)="toggleNewTaskList($event)">
+  
   @if(toogleAddListFlag){
+    
     <input #newTaskList class="new-task-list" type="text" placeholder='New Task List' />
   } @else {
+    
     <span class="material-symbols-outlined">add</span> New List
   }
 </div>

@@ -36,8 +36,13 @@ export class NewlistComponent {
 }
 
   toggleNewTaskList($event: MouseEvent) {
+    debugger
+    console.log("new")
     this.toogleAddListFlag = true;
+    
     this.newTaskList?.nativeElement.focus();
+    console.log(this.newTaskList)
+    
   }
 
 }
